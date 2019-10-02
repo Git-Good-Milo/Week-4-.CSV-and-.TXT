@@ -9,17 +9,39 @@ def open_read_file(file):
         for line in file_lines_list:
             print(line.rstrip('\n'))
 
-        opened_file.close() # Otherwise file isl locked and cant be changed
+        opened_file.close() # Otherwise file is locked and cant be changed
 
     except FileNotFoundError as errmsg:
         print("File can not be found. Please check your input")
         print(errmsg)
         raise
 
+def open_read_file_using_with(file):
+    try:
+        with open(file, 'r') as open_file:
+                for line in open_file.readlines():
+                    print(line.rstrip('\n'))
+    except FileNotFoundError as errmsg:
+        print("File can not be found. Please check your input")
+        print(errmsg)
+        #raise
+    finally:
+        print('\n Execution complete')
 
-# except SyntaxError as errmsg:
-#     print("There has been a syntax error", errmsg)
+def write_to_file(file, order_item):
+    try:
+        opened_file = open(file, 'w')
+        opened_file.write(order_item)
 
+        opened_file.close()
+    except FileNotFoundError:
+        print("File not found")
 
-# except:
-#     print("There has been an error. PANIC!!!!")
+def append_to_file(file, order_item):
+    try:
+        opened_file = open(file, 'a')
+        opened_file.write(order_item)
+
+        opened_file.close()
+    except FileNotFoundError:
+        print("File not found")
